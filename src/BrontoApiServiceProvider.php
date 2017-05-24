@@ -16,7 +16,9 @@ class BrontoApiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishes([
+            __DIR__.'/config/bronto.php' => config_path('bronto.php'),
+        ],'config');
     }
 
 
@@ -28,8 +30,13 @@ class BrontoApiServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('BrontoApi',function ($app){
-            return new ContactApi();
+            $token = config('bronto.token');
+            return new ContactApi($token);
         });
+
+        config([
+            'config/bronto.php',
+        ]);
         //$this->app->bind('bronto', function ($app) {
         //    $token = $app['config']->get('bronto::token');
         //    $token = '1AFA2B68-F4D7-47F3-8B5D-3ECF0FF09484';

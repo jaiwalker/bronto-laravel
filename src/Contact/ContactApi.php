@@ -12,18 +12,21 @@ use Bronto_Api;
 class ContactApi
 {
      protected  $bronto;
+
+
     /**
      * BrontoContactApi constructor.
+     *
+     * @param $token
      */
-    public function __construct()
+    public function __construct($token)
     {
-        $token = '1AFA2B68-F4D7-47F3-8B5D-3ECF0FF09484';
-
         $this->bronto = new Bronto_Api();
         if ( ! is_null($token)) {
             $this->bronto->setToken($token);
             $this->bronto->login();
         }
+
 
     }
 
@@ -45,6 +48,12 @@ class ContactApi
         } catch (Exception $e) {
             dd($e);
         }
+
+    }
+
+
+    public function updateContact()
+    {
 
     }
 
